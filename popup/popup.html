@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YT Filter</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="6" fill="url(#grad)"/>
+          <path d="M5 8.5L10 13.5L14 9.5L19 14.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FF4757"/>
+              <stop offset="1" stop-color="#C0392B"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h1 class="app-title">YT Filter</h1>
+        <p class="app-sub">Recommendation Filter</p>
+      </div>
+    </div>
+    <label class="toggle" id="toggle-label" title="Enable or disable filtering">
+      <input type="checkbox" id="enabled-toggle" checked />
+      <span class="toggle-track">
+        <span class="toggle-thumb"></span>
+      </span>
+    </label>
+  </header>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-value" id="stat-filtered">0</span>
+      <span class="stat-label">Filtered</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-value" id="stat-allowed">0</span>
+      <span class="stat-label">Allowed</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-value" id="stat-total">0</span>
+      <span class="stat-label">Total Channels</span>
+    </div>
+  </div>
+
+
+
+  <!-- Keyword sections: two tabs side by side -->
+  <div class="kw-tabs">
+    <!-- Tab: Title Block (hides matching videos) -->
+    <div class="kw-tab-section tb-section">
+      <div class="kw-tab-header">
+        <span class="kw-tab-icon tb-icon">✕</span>
+        <div>
+          <span class="kw-tab-title">Title Block</span>
+          <span class="kw-tab-hint">Hide videos whose title contains these</span>
+        </div>
+      </div>
+      <div class="kw-tab-input-row">
+        <input id="tb-input" class="kw-tab-input" type="text"
+          placeholder="skull, ghost, prank..." maxlength="200" spellcheck="false" />
+        <button class="kw-tab-add-btn tb-add-btn" id="tb-add-btn">+</button>
+      </div>
+      <div class="kw-list" id="tb-list"></div>
+    </div>
+
+    <div class="kw-tab-divider"></div>
+
+    <!-- Tab: Title Exception (forces matching videos to show) -->
+    <div class="kw-tab-section gkw-section-new">
+      <div class="kw-tab-header">
+        <span class="kw-tab-icon gkw-icon">✓</span>
+        <div>
+          <span class="kw-tab-title">Title Exception</span>
+          <span class="kw-tab-hint">Always show if title matches these</span>
+        </div>
+      </div>
+      <div class="kw-tab-input-row">
+        <input id="gkw-input" class="kw-tab-input" type="text"
+          placeholder="#programming, tutorial..." maxlength="200" spellcheck="false" />
+        <button class="kw-tab-add-btn gkw-add-btn" id="gkw-add-btn">+</button>
+      </div>
+      <div class="kw-list" id="gkw-list"></div>
+    </div>
+  </div>
+
+  <!-- Input area -->
+  <div class="input-section">
+    <div class="input-row">
+      <input
+        type="text"
+        id="filter-input"
+        class="filter-input"
+        placeholder="@ChannelHandle"
+        maxlength="100"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="add-btn" id="add-btn" title="Add channel">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="input-hint" id="input-hint">Add a channel to filter or allow it</p>
+  </div>
+
+  <!-- Filter list -->
+  <div class="filter-list-container">
+    <div class="filter-list" id="filter-list">
+      <!-- Dynamically populated -->
+    </div>
+    <div class="empty-state" id="empty-state">
+      <svg viewBox="0 0 48 48" fill="none" class="empty-icon"><circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/><path d="M16 24h16M24 16v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <p class="empty-text" id="empty-text">No channels added yet</p>
+      <p class="empty-sub">Add your first channel above</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <button class="clear-btn" id="clear-btn">Clear All</button>
+    <span class="footer-tag">YT Filter v1.0</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
